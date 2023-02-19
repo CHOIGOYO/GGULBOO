@@ -1,0 +1,46 @@
+spring:
+  jpa:
+    generate-ddl: 'false'
+    database: mysql
+    hibernate:
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    show-sql: 'true'
+    open-in-view: 'false'
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: 'true'
+        format_sql: 'true'
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  thymeleaf:
+    cache: 'false'
+    prefix: classpath:templates/
+    suffix: .html
+  devtools:
+    restart:
+      enabled: 'true'
+    livereload:
+      enabled: 'true'
+  datasource:
+    password: '0000'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ggulboo_user
+    url: jdbc:mysql://localhost:3306/ggulboo_db?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+
+  output:
+    ansi:
+      enabled: always
+  jap:
+    show-sql: 'true'
+
+  security:
+    user:
+      name: user
+      password: '1234'
+
+server:
+  port: '8081'
+
