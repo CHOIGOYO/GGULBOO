@@ -46,14 +46,15 @@ public class MemberController {
     @PostMapping("/SignUpForm/emailDuplicateCheck")
     public @ResponseBody String emailDuplicateCheck(@RequestParam("userEmail") String userEmail){ // @ResponseBody ajax사용시 필요 어노테이션
         System.out.println("userEmail = " + userEmail);
-        String checkResult = userService.emailDuplicateCheck(userEmail);
-        return checkResult;
+        String checkEmail = userService.emailDuplicateCheck(userEmail);
+        return checkEmail;
 //        if (checkResult != null) {
 //            return "사용 가능";
 //        } else {
 //            return "사용 불가";
 //        }
     }
+
 
 
     // 로그인을 위한 메서드 : userService에서 처리한 값에따라 view결과 반환

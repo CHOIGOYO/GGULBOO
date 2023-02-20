@@ -38,6 +38,7 @@ public class UserService {
         }
     }
 
+
 //    로그인 메서드
     public  UserDTO login(UserDTO userDTO){
         Optional<UserEntity> byuserEmail = userRepository.findByuserEmail(userDTO.getUserEmail());
