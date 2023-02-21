@@ -1,10 +1,19 @@
-drop table if exists User_Table;
+Hibernate: 
+    
+    drop table if exists User_Table
+Hibernate: 
+    
+    create table User_Table (
+       userId bigint not null auto_increment,
+        userBirthDay bigint not null,
+        userBirthMonth bigint not null,
+        userBirthYear bigint not null,
+        userEmail varchar(255) not null,
+        userName varchar(255) not null,
+        userPw varchar(255) not null,
+        primary key (userId)
+    ) engine=InnoDB
+Hibernate:
 
-create table User_Table (
-   userId bigint not null auto_increment, -- pk
-   userEmail varchar(255) not null, --이메일
-   userName varchar(255) not null, --이름
-   userPw varchar(255) nost null, -- 비밀번호
-   userBirthDay
-   primary key (UserId)
-) ;
+    alter table User_Table
+       add constraint UK_fan7yjcenp3iumbfsiatuv0iy unique (userEmail)

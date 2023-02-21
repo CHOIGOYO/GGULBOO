@@ -17,12 +17,18 @@ public class UserEntity {
     @Column(name="userId" , nullable = false)
     private Long userId; // 회원번호아이디
 
-    @Column(name ="userEmail",nullable = false , unique = true)
+    @Column(name ="userEmail",nullable = false , unique = true) //,
     private String userEmail; // 회원이메일
     @Column(name ="userPw",nullable = false)
     private String userPw; // 회원비밀번호
     @Column(name ="userName",nullable = false)
     private String userName; // 회원이름
+    @Column(name ="userBirthYear",nullable = false)
+    private  Long userBirthYear; // 회원 출생 년
+    @Column(name ="userBirthMonth",nullable = false)
+    private  Long userBirthMonth; // 회원 출생 달
+    @Column(name ="userBirthDay",nullable = false)
+    private  Long userBirthDay; // 회원 출생 일
 
 
 
@@ -33,6 +39,9 @@ public class UserEntity {
         userEntity.setUserPw(userDTO.getUserPw());
         userEntity.setUserName(userDTO.getUserName());
         userEntity.setUserEmail(userDTO.getUserEmail());
+        userEntity.setUserBirthYear(userDTO.getUserBirthYear());
+        userEntity.setUserBirthMonth(userDTO.getUserBirthMonth());
+        userEntity.setUserBirthDay(userDTO.getUserBirthDay());
         return userEntity;
     }
 }

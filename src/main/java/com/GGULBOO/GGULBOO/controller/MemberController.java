@@ -1,6 +1,7 @@
 package com.GGULBOO.GGULBOO.controller;
 
 import com.GGULBOO.GGULBOO.dto.UserDTO;
+import com.GGULBOO.GGULBOO.repository.UserRepository;
 import com.GGULBOO.GGULBOO.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class MemberController {
     public String login(){ return "user/loginForm"; }
 
 
-    // 회원가입을 위한 메서드 1 입력받은 값을 userService에 넘긴다
+//  회원가입을 위한 메서드 1 입력받은 값을 userService에 넘긴다
     @PostMapping("/member/save") // 요청이 들어오면 메서드를 실행하겠다
     public String save(@ModelAttribute UserDTO userDTO){ // SignUpForm에서 입력받은 값의 name이 DTO의 멤버 명과 같을 때 세팅됨
         System.out.println("MemberController.save");
@@ -42,17 +43,39 @@ public class MemberController {
         return "user/loginForm";
     }
 
-//    회원가입 시 이메일 중복체크
-    @PostMapping("/SignUpForm/emailDuplicateCheck")
-    public @ResponseBody String emailDuplicateCheck(@RequestParam("userEmail") String userEmail){ // @ResponseBody ajax사용시 필요 어노테이션
+//    회원가입요청시 이메일 중복체크 비밀번호와 비밀번호 확인체크
+    @PostMapping("/SignUpForm/SignUpFormSumitCheck")
+    public @ResponseBody String SignUpFormSumitCheck(@RequestParam("userEmail") String userEmail,@RequestParam("userPw")
+                                                        String userPw,@RequestParam("confirmPassword")String confirmPassword){ // @ResponseBody ajax사용시 필요 어노테이션
+
         System.out.println("userEmail = " + userEmail);
-        String checkEmail = userService.emailDuplicateCheck(userEmail);
-        return checkEmail;
+        String checkresult = userService.SignUpFormSumitCheck(userEmail, userPw, confirmPassword);
+        System.out.println(checkresult);
+        /*
+        * if (!(byUserEmail.isPresent()) && userPw.equals(confirmPassword)) { // 조회결과 없고, 입력한 비밀번호와 비밀번호확인이 일치할경우 ok리턴
+            return "ok";
+        } else if (!(userPw.equals(confirmPassword))) { // 입력한 비밀번호와 비밀번호확인이 다른경우 PWno리턴
+            return "PWno";
+        } else if (byUserEmail.isPresent()) { // 입력한 이메일이 DB상 존재하는경우 Emailno리턴
+            return "Emailno";
+        } else {
+            return "1234";
+        }
+        * */
+        return checkresult;
 //        if (checkResult != null) {
 //            return "사용 가능";
 //        } else {
 //            return "사용 불가";
 //        }
+    }
+
+//    회원가입 이메일 입력시 innerhtml에 들어갈 메서드
+    @PostMapping("/SignUpForm/emailDuplicateCheck")
+    public @ResponseBody String emailDuplicateCheck(@RequestParam("userEmail") String userEmail){
+        String emailChek = userService.emailDuplicateCheck(userEmail);
+        return emailChek;
+
     }
 
 

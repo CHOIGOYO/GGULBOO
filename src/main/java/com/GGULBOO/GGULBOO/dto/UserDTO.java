@@ -14,6 +14,9 @@ public class UserDTO {
     private String userPw ; // 회원비밀번호
     private String userName ; // 회원이름
     private String userEmail; // 회원이메일
+    private  Long userBirthYear; // 회원 출생 년
+    private  Long userBirthMonth; // 회원 출생 달
+    private  Long userBirthDay; // 회원 출생 일
 
 
     public static UserDTO toUserDTO(UserEntity userEntity){
@@ -22,6 +25,9 @@ public class UserDTO {
         userDTO.setUserPw(userEntity.getUserPw());
         userDTO.setUserName(userEntity.getUserName());
         userDTO.setUserEmail(userEntity.getUserEmail());
+        userDTO.setUserBirthYear(userEntity.getUserBirthYear());
+        userDTO.setUserBirthMonth(userEntity.getUserBirthMonth());
+        userDTO.setUserBirthDay(userEntity.getUserBirthDay());
         return userDTO;
     }
 }

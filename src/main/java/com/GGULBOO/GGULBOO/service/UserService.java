@@ -6,7 +6,7 @@ import com.GGULBOO.GGULBOO.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,16 +25,39 @@ public class UserService {
 //        1. dto -> entity 변환
         UserEntity userEntity = UserEntity.toUserEntity(userDTO);
 //        2. repository의 save메서드 호출
-        userRepository.save(userEntity); // jpa가 제공해주는 save 메서드 외 여러가지가 있음
+        try {
+            userRepository.save(userEntity); // jpa가 제공해주는 save 메서드 외 여러가지가 있음
+            System.out.println("DB저장시도");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
-//    회원가입시 이메일 중복확인 메서드 
-    public String emailDuplicateCheck(String userEmail) {
+//    회원가입요청시 이메일 중복확인 메서드
+    public String SignUpFormSumitCheck(String userEmail,String userPw, String confirmPassword) {
         Optional<UserEntity> byUserEmail = userRepository.findByuserEmail(userEmail);
-        if (byUserEmail.isPresent()) { // 조회결과 있으면 중복이메일 사용불가 이메일
-            return "no";
-        } else { // 조회결과 없으면 사용가능 이메일
+
+        if (!(byUserEmail.isPresent()) && userPw.equals(confirmPassword)) { // 조회결과 없고, 입력한 비밀번호와 비밀번호확인이 일치할경우 ok리턴
             return "ok";
+        } else if (!(userPw.equals(confirmPassword))) { // 입력한 비밀번호와 비밀번호확인이 다른경우 PWno리턴
+            return "PWno";
+        } else if (byUserEmail.isPresent()) { // 입력한 이메일이 DB상 존재하는경우 Emailno리턴
+            return "Emailno";
+        } else {
+            return "1234";
+        }
+    }
+
+//    회원가입 이메일입력시 중복여부 확인 innerhtml에 들어가는 메서드
+    public  String emailDuplicateCheck(String userEmail){
+        Optional<UserEntity> byUserEmail = userRepository.findByuserEmail(userEmail);
+        if (!(byUserEmail.isPresent())) { // 조회결과 없으면 사용가능 이메일
+            return "ok";
+        } else {
+            return "no";
         }
     }
 
@@ -107,7 +130,5 @@ public class UserService {
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
-
-
 
 }
