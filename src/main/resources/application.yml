@@ -15,6 +15,22 @@ spring:
         format_sql: 'true'
     database-platform: org.hibernate.dialect.MySQL8Dialect
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ggulboo.service@gmail.com
+    password: Rnfqn080899
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
   thymeleaf:
     cache: 'false'
     prefix: classpath:templates/
@@ -49,14 +65,3 @@ server:
 AdminMail:
   password: '1010989ggulbooAdmin3728362'
   id: 'ggulbooAdmin'
-mail:
-  smtp:
-    socketFactory:
-      class: javax.net.ssl.SSLSocketFactory
-      fallback: 'false'
-      port: '465'
-    starttls:
-      required: 'true'
-      enable: 'true'
-    port: '465'
-    auth: 'true'

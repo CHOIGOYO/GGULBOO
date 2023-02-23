@@ -1,49 +1,40 @@
 // 회원가입 sumit Check
-function SignUpFormSumitCheck(){
-    //const email = document.getElementById("태그의 아이디값").value
-     const userEmail = document.getElementById("userEmail").value;
-     const userPw = document.getElementById("userPw").value;
-     const confirmPassword = document.getElementById("confirmPassword").value;
-     console.log("SignUpFormSumitCheck() 호출성공"); // 호출까지는 되었음 
-     var isSubmit = false; //  초기값
-     $.ajax({
-              type:"post",
-              url:"/SignUpForm/SignUpFormSumitCheck",
-              data: {
-                  "userEmail": userEmail, // "전송되는 파라미터 값 이름 ": 파라미터
-                  "userPw":userPw,
-                  "confirmPassword":confirmPassword
-              },
-              async: false,
-              success :
-              function(res){
-                  console.log("요청성공 : ", res);
-                  if(res == "Emailno"){
-                        alert("이메일을 확인해주세요.");
-                        isSubmit = false;
-                        // $("#userEmail").focus();
-                        document.getElementById("userEmail").focus();
-                  }
-                  if(res == "PWno"){
-                        alert("비밀번호를 확인해주세요.");
-                        console.log("res : ",res);
-                        isSubmit = false;
-                        // $("#confirmPassword").focus();
-                        document.getElementById("confirmPassword").focus();
-                  }
-                  else{
-                        alert("회원가입 성공.");
-                        console.log("res : ",res);
-                        isSubmit = true;
-                  }
-
-              },
-              error : function(err){
-                 console.log("에러발생: ",err);
-                 }
-     })
-     return isSubmit;  
- }
+function SignUpFormSumitCheck() {
+    const userEmail = document.getElementById("userEmail").value;
+    const userPw = document.getElementById("userPw").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    console.log("SignUpFormSumitCheck() 호출성공");
+  
+    $.ajax({
+      type: "post",
+      url: "/SignUpForm/SignUpFormSumitCheck",
+      data: {
+        "userEmail": userEmail,
+        "userPw": userPw,
+        "confirmPassword": confirmPassword
+      },
+      success: function(res) {
+        console.log("요청성공 : ", res);
+        if (res == "Emailno") {
+          alert("이메일을 확인해주세요.");
+          document.getElementById("userEmail").focus();
+        } else if (res == "PWno") {
+          alert("비밀번호를 확인해주세요.");
+          document.getElementById("confirmPassword").focus();
+        } else {
+          alert("회원가입 성공.");
+          console.log("res : ", res);
+          $("#SignUpForm").submit();
+        }
+      },
+      error: function(err) {
+        console.log("에러발생: ", err);
+      }
+    });
+  
+    return false; // ajax 요청을 기다리는 동안 기존의 submit 이벤트는 막음
+  }
+  
  //이메일 중복회원 여부 확인(span.innerHtml)
 function emailDuplicateCheck(){
      //const email = document.getElementById("태그의 아이디값").value
@@ -93,3 +84,18 @@ function emailDuplicateCheck(){
 		confirmMsg.innerHTML ="비밀번호 불일치";
 	   }
  }
+
+	$(document).ready(function() {
+		$('#userPw').on('keyup', function() {
+			var userPw = $(this).val();
+			var strength = '';
+			if (userPw.length < 6) {
+				strength = '비밀번호는 8자리 이상이어야합니다.';
+				$('#password-strength').css('color', 'red');
+			} else if (userPw.length >= 8) {
+				strength = '완벽해요!';
+				$('#password-strength').css('color', 'green');
+			}
+			$('#password-strength').text(strength);
+		});
+	});

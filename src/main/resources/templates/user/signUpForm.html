@@ -2,16 +2,19 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+    <!-- 부트스트랩 라이브러리 추가 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- jquery cdn -->
     <script
             src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
             crossorigin="anonymous"></script>
+    <script>
+
+	</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script th:inline="javascript" th:src="@{/js/infoCheck.js}"></script>
     <title>회원가입</title>
@@ -20,18 +23,42 @@
 <!-- 회원가입 폼 -->
 <div class="container-md shadow p-3 mb-5 mt-5 w-50 bg-body rounded">
     <!-- action속성 : form에 작성한 데이터를 어디로 보낼지 -->
-    <form action="/member/save" method="post" onsubmit="return SignUpFormSumitCheck()">
+    <form action="/member/save" method="post" onsubmit="return SignUpFormSumitCheck();">
         <h3 class="center text-center">회원가입</h3>
         <span id="warningMsg"></span>
         <div class="mb-3">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="userEmail" id="userEmail" onblur="emailDuplicateCheck()" placeholder="이메일을 입력해주세요">
-            <span id="checkEmail"></span>
+            <div class="row">
+                <div class="col-10">
+                    <input type="email" class="form-control" name="userEmail" id="userEmail" onblur="emailDuplicateCheck()" placeholder="이메일을 입력해주세요">
+                </div>
+                <div class="col-2">
+                    <input class="btn btn-outline-primary"  name="checkEmailNumber" id="checkEmailNumber"  type="button" value="인증번호" onclick="#">
+                </div>
+            </div>
+            <span id="checkEmail">
+                 <!-- 사용가능 이메일 확인여부 출력 하기 (미진행) -->
+            </span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요">
-        </div>
+            <label class="form-label">인증번호</label>
+            <div class="row">
+                <div class="col-10">
+                    <input type="text" class="form-control" name="#" id="#" placeholder="인증번호를 입력해주세요" >
+                </div>
+                <div class="col-2">
+                    <input class="btn btn-outline-primary"  name="certificationNumber" id="certificationNumber"  type="button" value="확인하기" onclick="#">
+                </div>
+            </div>
+            <div class="col-auto">
+                <!--<span id="#" class="#">
+                     일치 / 불일치 결과 출력 (미진행)
+                </span>-->
+            </div>
+        <div class="mb-3">
+            <label class="form-label" for="userPw">Password</label>
+            <input type="password" class="form-control" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요" aria-describedby="passwordHelpInline">
+            <span id="password-strength"></span>
         <div class="mb-3">
             <label class="form-label">Confirm Password</label>
             <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" onblur="chackPassword()" placeholder="비밀번호 확인">
@@ -81,7 +108,7 @@
             </div>
         </div>
         <div class="center text-center">
-            <input type="submit" value="가입하기" class="btn btn-primary" > <!-- onsubmit="return SignUpFormSumitCheck()" 전송전에 체크하는 이벤트  -->
+            <input type="submit" value="가입하기" class="btn btn-primary" >
         </div>
     </form>
 </div>

@@ -40,7 +40,7 @@ public class MemberController {
         System.out.println("MemberController.save");
         System.out.println("userDTO = " + userDTO);
         userService.save(userDTO); // service객체에 dto객체를 넘김
-        return "user/loginForm";
+        return "user/LoginForm";
     }
 
 //    회원가입요청시 이메일 중복체크 비밀번호와 비밀번호 확인체크
