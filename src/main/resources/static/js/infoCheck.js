@@ -1,10 +1,16 @@
-// 회원가입 sumit Check
 function SignUpFormSumitCheck() {
-    const userEmail = document.getElementById("userEmail").value;
-    const userPw = document.getElementById("userPw").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-    console.log("SignUpFormSumitCheck() 호출성공");
-  
+  // 입력된 이메일, 비밀번호, 비밀번호 확인 값을 가져옴
+  const userEmail = document.getElementById("userEmail").value;
+  const userPw = document.getElementById("userPw").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  helloUser = false;
+
+  // 콘솔에 로그를 출력하여 함수가 호출되었는지 확인
+  console.log("SignUpFormSumitCheck() 호출성공");
+
+  // AJAX 호출을 Promise 객체로 감싸기
+  const ajaxPromise = new Promise((resolve, reject) => {
+    // jQuery를 이용하여 AJAX 요청을 보냄
     $.ajax({
       type: "post",
       url: "/SignUpForm/SignUpFormSumitCheck",
@@ -14,27 +20,46 @@ function SignUpFormSumitCheck() {
         "confirmPassword": confirmPassword
       },
       success: function(res) {
+        // 요청이 성공하면 결과를 출력하고, Promise 객체를 resolve
         console.log("요청성공 : ", res);
-        if (res == "Emailno") {
-          alert("이메일을 확인해주세요.");
-          document.getElementById("userEmail").focus();
-        } else if (res == "PWno") {
-          alert("비밀번호를 확인해주세요.");
-          document.getElementById("confirmPassword").focus();
-        } else {
-          alert("회원가입 성공.");
-          console.log("res : ", res);
-          $("#SignUpForm").submit();
-        }
+        resolve(res);
       },
       error: function(err) {
+        // 요청이 실패하면 에러를 출력하고, Promise 객체를 reject
         console.log("에러발생: ", err);
+        reject(err);
       }
     });
-  
-    return false; // ajax 요청을 기다리는 동안 기존의 submit 이벤트는 막음
-  }
-  
+  });
+
+  // Promise 객체가 완료될 때까지 대기하고 결과에 따라 처리
+  ajaxPromise.then((res) => {
+    if (res == "Emailno") {
+      // 이메일이 유효하지 않으면 경고창을 띄우고, 이메일 입력 필드에 포커스
+      alert("이메일을 확인해주세요.");
+      document.getElementById("userEmail").focus();
+      helloUser = false;
+    } else if (res == "PWno") {
+      // 비밀번호가 유효하지 않으면 경고창을 띄우고, 비밀번호 확인 입력 필드에 포커스
+      alert("비밀번호를 확인해주세요.");
+      document.getElementById("confirmPassword").focus();
+      helloUser = false;
+    } else {
+      // 모든 입력이 유효하면 회원가입이 성공적으로 이루어졌음을 알리고, 폼을 전송(submit)함
+      alert("회원가입 성공.");
+      console.log("res : ", res);
+      $("#SignUpForm").submit();
+      helloUser = true;
+    }
+  }).catch((err) => {
+    // Promise 객체가 reject되면 에러를 출력
+    console.log("에러발생: ", err);
+  });
+
+  // submit() 함수가 호출되지 않도록 방지
+  return helloUser;
+}
+
  //이메일 중복회원 여부 확인(span.innerHtml)
 function emailDuplicateCheck(){
      //const email = document.getElementById("태그의 아이디값").value

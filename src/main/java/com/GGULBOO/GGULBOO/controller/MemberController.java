@@ -33,15 +33,12 @@ public class MemberController {
     @GetMapping("/LoginForm")
     public String login(){ return "user/loginForm"; }
 
+    //    나의 장부로 이동
+    @GetMapping("/accountBook")
+    public String toAccountBook(){
+        return "user/accountBook"; }
 
-//  회원가입을 위한 메서드 1 입력받은 값을 userService에 넘긴다
-    @PostMapping("/member/save") // 요청이 들어오면 메서드를 실행하겠다
-    public String save(@ModelAttribute UserDTO userDTO){ // SignUpForm에서 입력받은 값의 name이 DTO의 멤버 명과 같을 때 세팅됨
-        System.out.println("MemberController.save");
-        System.out.println("userDTO = " + userDTO);
-        userService.save(userDTO); // service객체에 dto객체를 넘김
-        return "user/LoginForm";
-    }
+
 
 //    회원가입요청시 이메일 중복체크 비밀번호와 비밀번호 확인체크
     @PostMapping("/SignUpForm/SignUpFormSumitCheck")
@@ -78,6 +75,14 @@ public class MemberController {
 
     }
 
+    //  회원가입을 위한 메서드 1 입력받은 값을 userService에 넘긴다
+    @PostMapping("/member/save") // 요청이 들어오면 메서드를 실행하겠다
+    public String save(@ModelAttribute UserDTO userDTO){ // SignUpForm에서 입력받은 값의 name이 DTO의 멤버 명과 같을 때 세팅됨
+        System.out.println("MemberController.save");
+        System.out.println("userDTO = " + userDTO);
+        userService.save(userDTO); // service객체에 dto객체를 넘김
+        return "user/loginForm";
+    }
 
 
     // 로그인을 위한 메서드 : userService에서 처리한 값에따라 view결과 반환

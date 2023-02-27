@@ -41,7 +41,7 @@ public class UserService {
         Optional<UserEntity> byUserEmail = userRepository.findByuserEmail(userEmail);
 
         if (!(byUserEmail.isPresent()) && userPw.equals(confirmPassword)) { // 조회결과 없고, 입력한 비밀번호와 비밀번호확인이 일치할경우 ok리턴
-            return "ok";
+            return "EmailPWok";
         } else if (!(userPw.equals(confirmPassword))) { // 입력한 비밀번호와 비밀번호확인이 다른경우 PWno리턴
             return "PWno";
         } else if (byUserEmail.isPresent()) { // 입력한 이메일이 DB상 존재하는경우 Emailno리턴
