@@ -6,7 +6,6 @@ import com.GGULBOO.GGULBOO.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor // 생성자 주입 사용하기
 public class UserService {
     private final UserRepository userRepository; // DI
+
 
 
 
@@ -131,4 +131,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public UserEntity getUserByEmail(String email) {
+        return userRepository.findByUserEmail(email);
+    }
 }

@@ -29,6 +29,8 @@ public class UserEntity {
     private  Long userBirthMonth; // 회원 출생 달
     @Column(name ="userBirthDay",nullable = false)
     private  Long userBirthDay; // 회원 출생 일
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private AccountBookEntity accountBook;
 
 
 

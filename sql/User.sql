@@ -12,7 +12,6 @@ Hibernate:
         userName varchar(255) not null,
         userPw varchar(255) not null,
         primary key (userId)
-    ) engine=InnoDB
 Hibernate:
 
     alter table User_Table

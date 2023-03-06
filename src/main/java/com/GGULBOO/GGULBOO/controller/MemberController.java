@@ -1,6 +1,7 @@
 package com.GGULBOO.GGULBOO.controller;
 
 import com.GGULBOO.GGULBOO.dto.UserDTO;
+import com.GGULBOO.GGULBOO.entity.UserEntity;
 import com.GGULBOO.GGULBOO.repository.UserRepository;
 import com.GGULBOO.GGULBOO.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -34,9 +36,15 @@ public class MemberController {
     public String login(){ return "user/loginForm"; }
 
     //    나의 장부로 이동
-    @GetMapping("/accountBook")
-    public String toAccountBook(){
-        return "user/accountBook"; }
+    @GetMapping("/myAccountBook")
+    public String toAccountBook(HttpSession session) {
+        // 세션을 사용하는 코드 작성
+        String userEmail = (String) session.getAttribute("userEmail");
+        UserEntity user = userService.getUserByEmail(userEmail);
+
+        // 뷰 페이지를 반환
+        return "user/accountBook";
+    }
 
 
 

@@ -11,14 +11,11 @@
     <script
             src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-            crossorigin="anonymous"></script>
-    <script>
+            crossorigin="anonymous">
 
-	</script>
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script th:inline="javascript" th:src="@{/js/infoCheck.js}"></script>
-    <script th:inline="javascript" th:src="@{/js/inFoCheckInnerHtml.js}"></script>
-
     <title>회원가입</title>
 </head>
 <body>
@@ -35,7 +32,7 @@
                     <input type="email" class="form-control" name="userEmail" id="userEmail" onblur="emailDuplicateCheck()" placeholder="이메일을 입력해주세요">
                 </div>
                 <div class="col-2">
-                    <input class="btn btn-outline-primary"  name="checkEmailNumber" id="checkEmailNumber"  type="button" value="인증번호" onclick="#">
+                    <input class="btn btn-outline-primary"  name="checkEmailNumber" id="checkEmailNumber"  type="button" value="인증번호" onclick="">
                 </div>
             </div>
             <span id="checkEmail">
@@ -46,10 +43,10 @@
             <label class="form-label">인증번호</label>
             <div class="row">
                 <div class="col-10">
-                    <input type="text" class="form-control" name="#" id="#" placeholder="인증번호를 입력해주세요" >
+                    <input type="text" class="form-control" name="" id="" placeholder="인증번호를 입력해주세요" >
                 </div>
                 <div class="col-2">
-                    <input class="btn btn-outline-primary"  name="certificationNumber" id="certificationNumber"  type="button" value="확인하기" onclick="#">
+                    <input class="btn btn-outline-primary"  name="certificationNumber" id="certificationNumber"  type="button" value="확인하기" onclick="">
                 </div>
             </div>
             <div class="col-auto">
@@ -115,5 +112,7 @@
     </form>
 </div>
 <!-- /회원가입  -->
+<script th:inline="javascript" th:src="@{/js/infoCheck.js}"></script>
+<script th:inline="javascript" th:src="@{/js/infoCheckInnerHtml.js}"></script>
 </body>
 </html>
